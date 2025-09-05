@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lokesh Singam — Portfolio</title>
+  <meta name="description" content="Personal website / portfolio" />
+  <style>
+    /*
+      ====== QUICK START NOTES ======
+      1) Replace all "Lokesh Singam", links, and sample content below.
+      2) Save this file as index.html and open it in your browser.
+      3) Publish with GitHub Pages (instructions in chat) when ready.
+    */
+
+    :root {
+      --bg: #0b0c10;
+      --surface: #111218;
+      --surface-2: #171925;
+      --text: #e6e8ee;
+      --muted: #a0a6b5;
+      --primary: #6ee7ff;
+      --primary-2: #7c3aed;
+      --accent: #22c55e;
+      --danger: #ef4444;
+      --ring: rgba(110, 231, 255, 0.5);
+      --radius: 16px;
+      --shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+      --maxw: 1100px;
+    }
+
+    /* Light mode for users who prefer it */
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f6f7fb;
+        --surface: #ffffff;
+        --surface-2: #f1f3f9;
+        --text: #0f172a;
+        --muted: #4b5563;
+        --primary: #0ea5e9;
+        --primary-2: #7c3aed;
+        --accent: #16a34a;
+        --danger: #dc2626;
+        --ring: rgba(14, 165, 233, 0.35);
+        --shadow: 0 10px 30px rgba(2, 8, 23, 0.08);
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1200px 800px at 80% -10%, rgba(124, 58, 237, 0.15), transparent 60%),
+                  radial-gradient(1000px 600px at 0% 0%, rgba(14, 165, 233, 0.15), transparent 60%),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ===== NAV ===== */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(8px);
+      background: color-mix(in oklab, var(--bg) 90%, transparent);
+      border-bottom: 1px solid color-mix(in oklab, var(--text) 15%, transparent);
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text);
+      font-weight: 700;
+    }
+    .logo {
+      width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      box-shadow: var(--shadow);
+      display: grid; place-items: center; color: #0b0c10; font-weight: 900;
+    }
+    nav a {
+      text-decoration: none; color: var(--muted); font-weight: 600; margin-left: 18px;
+    }
+    nav a:hover { color: var(--text); }
+
+    .btn {
+      display: inline-block; padding: 10px 16px; border-radius: 999px; border: 1px solid color-mix(in oklab, var(--text) 12%, transparent);
+      text-decoration: none; color: var(--text); font-weight: 700; box-shadow: var(--shadow);
+    }
+    .btn.primary { background: linear-gradient(135deg, var(--primary), var(--primary-2)); color: white; border: none; }
+    .btn.ghost { background: transparent; }
+
+    /* ===== HERO ===== */
+    .hero { padding: 72px 0 40px; }
+    .hero-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 36px; align-items: center; }
+    .hero h1 { font-size: clamp(28px, 5vw, 48px); line-height: 1.1; margin: 0 0 12px; }
+    .hero p { font-size: clamp(16px, 2.4vw, 20px); color: var(--muted); margin: 0 0 22px; }
+    .chiprow { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0 0; }
+    .chip { padding: 6px 12px; background: var(--surface-2); border: 1px solid color-mix(in oklab, var(--text) 10%, transparent); border-radius: 999px; font-size: 14px; }
+
+    .avatar {
+      width: 180px; height: 180px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      display: grid; place-items: center; font-weight: 900; font-size: 48px; color: #0b0c10; margin: 0 auto;
+      box-shadow: var(--shadow);
+    }
+
+    /* ===== SECTIONS ===== */
+    section { padding: 56px 0; }
+    .card {
+      background: var(--surface);
+      border: 1px solid color-mix(in oklab, var(--text) 12%, transparent);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px;
+    }
+    h2 { font-size: 28px; margin: 0 0 12px; }
+    .muted { color: var(--muted); }
+
+    /* ===== PROJECTS GRID ===== */
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .project {
+      display: flex; flex-direction: column; gap: 10px;
+      background: var(--surface);
+      border: 1px solid color-mix(in oklab, var(--text) 12%, transparent);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .project .thumb { height: 140px; background: linear-gradient(135deg, color-mix(in oklab, var(--primary) 70%, #000), color-mix(in oklab, var(--primary-2) 80%, #000)); }
+    .project .content { padding: 16px; }
+    .project h3 { margin: 0 0 6px; font-size: 18px; }
+    .project p { margin: 0 0 10px; color: var(--muted); }
+    .project .links { display: flex; gap: 10px; margin-top: auto; padding: 0 16px 16px; }
+
+    /* ===== CONTACT ===== */
+    .stack { display: grid; gap: 12px; }
+    .field { display: grid; gap: 6px; }
+    .input, textarea {
+      width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid color-mix(in oklab, var(--text) 15%, transparent);
+      background: var(--surface-2); color: var(--text);
+    }
+
+    footer { padding: 32px 0 60px; color: var(--muted); text-align: center; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: 1fr 1fr; }
+      nav { display: none; } /* mobile: keep it simple */
+    }
+    @media (max-width: 600px) {
+      .grid { grid-template-columns: 1fr; }
+      .btn { width: 100%; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <!-- ===== NAVBAR ===== -->
+  <header>
+    <div class="container nav" role="navigation" aria-label="Main">
+      <a class="brand" href="#home" aria-label="Go to top">
+	<img src="logo.jpg" alt="Lokesh Singam logo" class="logo" style="object-fit:cover;">
+        <span>Lokesh Singam</span>
+      </a>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+        <a class="btn ghost" href="#" onclick="alert('Replace with your resume link!'); return false;">Resume</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <main id="home" class="hero">
+    <div class="container hero-grid">
+      <div>
+        <h1>Hi, I'm <span style="color: var(--primary)">Lokesh Singam</span> 👋</h1>
+        <p>I'm a <strong>Software Engineer</strong> based in <strong>Glassboro</strong>. I enjoy building clean, fast websites and learning new tech. This is my simple one-page portfolio.
+        </p>
+        <div class="chiprow" aria-label="Skills">
+          <!-- Edit your top skills here -->
+          <span class="chip">HTML</span>
+          <span class="chip">CSS</span>
+          <span class="chip">JavaScript</span>
+          <span class="chip">Python</span>
+        </div>
+        <div style="margin-top: 22px; display:flex; gap: 10px; flex-wrap: wrap;">
+          <a class="btn primary" href="#projects">See my work</a>
+          <a class="btn ghost" href="#contact">Contact me</a>
+        </div>
+        <p class="muted" style="margin-top: 14px;">🔗 Socials:
+          <!-- Replace with your links -->
+          <a href="https://github.com/LokeshSingam" style="color: inherit;">🐙 GitHub</a> ·
+          <a href="https://www.linkedin.com/in/lokesh-singam-3a288a293/" style="color: inherit;">💼 LinkedIn</a> ·
+          <a href="mailto:singamlokesh6@gmail.com" style="color: inherit;">✉️ </a>
+        </p>
+      </div>
+      <div>
+        <!-- If you have a real headshot, replace this div with <img src="profile.jpg" alt="Lokesh Singam headshot" class="avatar" style="object-fit: cover;"> -->
+<img src="profile.jpg" alt="Your Name headshot" class="avatar" style="object-fit: cover;">
+      </div>
+    </div>
+  </main>
+
+  <!-- ===== ABOUT ===== -->
+  <section id="about">
+    <div class="container">
+      <div class="card">
+        <h2>About Me</h2>
+        <p class="muted"></p>
+        <p>
+I’m a Computer Science student with strong skills in programming languages like Java and web development. I’m passionate about cloud computing and creating full-stack applications by integrating front-end and back-end technologies. Though early in my career, I’m eager to learn, grow and contribute to innovative projects. I’m looking for an opportunity to apply my skills and enthusiasm for technology in a dynamic organization where I can make an impact.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROJECTS ===== -->
+  <section id="projects">
+    <div class="container">
+      <h2>Projects</h2>
+      <p class="muted">Here are a few things I've built. Swap these with your own!</p>
+      <div class="grid" role="list">
+        <!-- Project 1 -->
+        <article class="project" role="listitem">
+          <div class="thumb" aria-hidden="true"></div>
+          <div class="content">
+            <h3>Project One</h3>
+            <p>A simple landing page with responsive layout and smooth scrolling.</p>
+          </div>
+          <div class="links">
+            <a class="btn ghost" href="#" onclick="alert('Replace with your live demo link'); return false;">Live</a>
+            <a class="btn ghost" href="#" onclick="alert('Replace with your GitHub repo link'); return false;">Code</a>
+          </div>
+        </article>
+
+        <!-- Project 2 -->
+        <article class="project" role="listitem">
+          <div class="thumb" aria-hidden="true"></div>
+          <div class="content">
+            <h3>Project Two</h3>
+            <p>Weather widget that fetches data from a public API and displays it nicely.</p>
+          </div>
+          <div class="links">
+            <a class="btn ghost" href="#" onclick="alert('Replace with your live demo link'); return false;">Live</a>
+            <a class="btn ghost" href="#" onclick="alert('Replace with your GitHub repo link'); return false;">Code</a>
+          </div>
+        </article>
+
+        <!-- Project 3 -->
+        <article class="project" role="listitem">
+          <div class="thumb" aria-hidden="true"></div>
+          <div class="content">
+            <h3>Project Three</h3>
+            <p>Simple to-do app with local storage and keyboard shortcuts.</p>
+          </div>
+          <div class="links">
+            <a class="btn ghost" href="#" onclick="alert('Replace with your live demo link'); return false;">Live</a>
+            <a class="btn ghost" href="#" onclick="alert('Replace with your GitHub repo link'); return false;">Code</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section id="contact">
+    <div class="container">
+      <div class="card">
+        <h2>Contact</h2>
+        <p class="muted">The easiest way is my email. </p>
+        <div class="stack">
+          <!-- Change mailto address below -->
+          <a class="btn primary" href="mailto:you@example.com">✉️ singamlokesh6@gmail.com </a>
+
+          <!-- Optional basic form with mailto (opens your singamlokesh6@gmail.com app) -->
+          <form action="mailto:you@example.com" method="GET" enctype="text/plain">
+            <div class="field">
+              <label for="name">Your Name</label>
+              <input id="name" class="input" name="name" type="text" placeholder="Arjun" required>
+            </div>
+            <div class="field">
+              <label for="singamlokesh6@gmail.com">Your email</label>
+              <input id="singamlokesh6@gmail.com" class="input" name="singamlokesh6@gmail.com" type="singamlokesh6@gmail.com" placeholder="arjun@example.com" required>
+            </div>
+            <div class="field">
+              <label for="message">Message</label>
+              <textarea id="message" class="input" name="message" rows="4" placeholder="Hello! I'd like to work together."></textarea>
+            </div>
+            <button class="btn primary" type="submit">Send</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      © <span id="year"></span> Lokesh Singam. Built with plain HTML & CSS.
+    </div>
+  </footer>
+
+  <script>
+    // Auto‑update year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
