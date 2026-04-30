@@ -3,320 +3,716 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Lokesh Singam — Portfolio</title>
-  <meta name="description" content="Personal website / portfolio" />
+  <title>Lokesh Singam — Software Engineer</title>
+  <meta name="description" content="Junior CS student at Rowan University. Building things with Rust, Android, and JavaScript." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    /*
-      ====== QUICK START NOTES ======
-      1) Replace all "Lokesh Singam", links, and sample content below.
-      2) Save this file as index.html and open it in your browser.
-      3) Publish with GitHub Pages (instructions in chat) when ready.
-    */
-
     :root {
-      --bg: #0b0c10;
-      --surface: #111218;
-      --surface-2: #171925;
-      --text: #e6e8ee;
-      --muted: #a0a6b5;
-      --primary: #6ee7ff;
-      --primary-2: #7c3aed;
-      --accent: #22c55e;
-      --danger: #ef4444;
-      --ring: rgba(110, 231, 255, 0.5);
-      --radius: 16px;
-      --shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
-      --maxw: 1100px;
+      --bg: #0a0a0a;
+      --surface: #111111;
+      --surface-2: #181818;
+      --surface-3: #1f1f1f;
+      --text: #f0f0f0;
+      --muted: #888888;
+      --subtle: #333333;
+      --primary: #ffffff;
+      --primary-dim: rgba(255,255,255,0.07);
+      --green: #cccccc;
+      --green-dim: rgba(255,255,255,0.06);
+      --radius: 14px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.5);
+      --maxw: 900px;
     }
 
-    /* Light mode for users who prefer it */
-    @media (prefers-color-scheme: light) {
-      :root {
-        --bg: #f6f7fb;
-        --surface: #ffffff;
-        --surface-2: #f1f3f9;
-        --text: #0f172a;
-        --muted: #4b5563;
-        --primary: #0ea5e9;
-        --primary-2: #7c3aed;
-        --accent: #16a34a;
-        --danger: #dc2626;
-        --ring: rgba(14, 165, 233, 0.35);
-        --shadow: 0 10px 30px rgba(2, 8, 23, 0.08);
-      }
-    }
-
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
+
     body {
-      margin: 0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      background: radial-gradient(1200px 800px at 80% -10%, rgba(124, 58, 237, 0.15), transparent 60%),
-                  radial-gradient(1000px 600px at 0% 0%, rgba(14, 165, 233, 0.15), transparent 60%),
-                  var(--bg);
+      font-family: 'Sora', sans-serif;
+      background: var(--bg);
       color: var(--text);
-      line-height: 1.6;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
     }
 
-    .container {
-      max-width: var(--maxw);
-      margin: 0 auto;
-      padding: 0 20px;
+    /* noise texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
     }
 
-    /* ===== NAV ===== */
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+    /* ── NAV ── */
     header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      backdrop-filter: blur(8px);
-      background: color-mix(in oklab, var(--bg) 90%, transparent);
-      border-bottom: 1px solid color-mix(in oklab, var(--text) 15%, transparent);
+      position: sticky; top: 0; z-index: 100;
+      border-bottom: 1px solid var(--subtle);
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(12px);
     }
     .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px;
     }
     .brand {
-      display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text);
-      font-weight: 700;
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: var(--text);
+      font-weight: 700; font-size: 15px; letter-spacing: -0.3px;
     }
-    .logo {
-      width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--primary-2));
-      box-shadow: var(--shadow);
-      display: grid; place-items: center; color: #0b0c10; font-weight: 900;
+    .logo-circle {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: #ffffff;
+      display: grid; place-items: center; font-size: 13px;
+      font-weight: 800; color: #0a0a0a; flex-shrink: 0;
     }
+    nav { display: flex; align-items: center; gap: 4px; }
     nav a {
-      text-decoration: none; color: var(--muted); font-weight: 600; margin-left: 18px;
+      text-decoration: none; color: var(--muted);
+      font-size: 14px; font-weight: 500;
+      padding: 6px 12px; border-radius: 8px;
+      transition: color 0.2s, background 0.2s;
     }
-    nav a:hover { color: var(--text); }
-
-    .btn {
-      display: inline-block; padding: 10px 16px; border-radius: 999px; border: 1px solid color-mix(in oklab, var(--text) 12%, transparent);
-      text-decoration: none; color: var(--text); font-weight: 700; box-shadow: var(--shadow);
+    nav a:hover { color: var(--text); background: var(--surface-2); }
+    .btn-resume {
+      text-decoration: none; color: var(--text);
+      font-size: 14px; font-weight: 600;
+      padding: 6px 14px; border-radius: 8px;
+      border: 1px solid var(--subtle);
+      transition: background 0.2s, border-color 0.2s;
     }
-    .btn.primary { background: linear-gradient(135deg, var(--primary), var(--primary-2)); color: white; border: none; }
-    .btn.ghost { background: transparent; }
+    .btn-resume:hover { background: var(--surface-2); border-color: var(--muted); }
 
-    /* ===== HERO ===== */
-    .hero { padding: 72px 0 40px; }
-    .hero-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 36px; align-items: center; }
-    .hero h1 { font-size: clamp(28px, 5vw, 48px); line-height: 1.1; margin: 0 0 12px; }
-    .hero p { font-size: clamp(16px, 2.4vw, 20px); color: var(--muted); margin: 0 0 22px; }
-    .chiprow { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0 0; }
-    .chip { padding: 6px 12px; background: var(--surface-2); border: 1px solid color-mix(in oklab, var(--text) 10%, transparent); border-radius: 999px; font-size: 14px; }
+    /* ── HERO ── */
+    .hero { padding: 80px 0 64px; }
+    .hero-inner { display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: center; }
+    .status-dot {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 13px; color: var(--muted); font-weight: 500;
+      background: var(--surface-2); padding: 5px 12px; border-radius: 99px;
+      border: 1px solid var(--subtle);
+      margin-bottom: 20px; width: fit-content;
+    }
+    .status-dot::before {
+      content: '';
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--text);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 800; line-height: 1.1;
+      letter-spacing: -1.5px;
+      margin-bottom: 16px;
+    }
+    .hero h1 span { color: var(--text); }
+    .hero-desc {
+      font-size: 17px; color: var(--muted);
+      max-width: 540px; line-height: 1.75; margin-bottom: 28px;
+    }
+    .hero-desc strong { color: var(--text); font-weight: 600; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 36px; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 22px; border-radius: 10px;
+      background: #ffffff; color: #0a0a0a;
+      font-weight: 700; font-size: 14px; text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.85; }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 22px; border-radius: 10px;
+      border: 1px solid var(--subtle); color: var(--text);
+      font-weight: 600; font-size: 14px; text-decoration: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--muted); background: var(--surface-2); }
+
+    .socials { display: flex; gap: 14px; align-items: center; }
+    .socials a {
+      color: var(--muted); text-decoration: none;
+      font-size: 13px; font-weight: 500;
+      display: flex; align-items: center; gap: 6px;
+      transition: color 0.2s;
+    }
+    .socials a:hover { color: var(--text); }
+    .socials-divider { color: var(--subtle); }
 
     .avatar {
-      width: 180px; height: 180px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary), var(--primary-2));
-      display: grid; place-items: center; font-weight: 900; font-size: 48px; color: #0b0c10; margin: 0 auto;
-      box-shadow: var(--shadow);
+      width: 160px; height: 160px; border-radius: 50%;
+      border: 2px solid var(--subtle);
+      overflow: hidden; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--surface-2), var(--surface-3));
+    }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .avatar-fallback {
+      width: 100%; height: 100%;
+      display: grid; place-items: center;
+      font-size: 52px; font-weight: 800;
+      background: #ffffff;
+      color: #0a0a0a;
     }
 
-    /* ===== SECTIONS ===== */
-    section { padding: 56px 0; }
-    .card {
-      background: var(--surface);
-      border: 1px solid color-mix(in oklab, var(--text) 12%, transparent);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 24px;
+    /* ── SHARED SECTION STYLES ── */
+    section { padding: 56px 0; border-top: 1px solid var(--subtle); }
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--muted);
+      margin-bottom: 8px;
     }
-    h2 { font-size: 28px; margin: 0 0 12px; }
-    .muted { color: var(--muted); }
+    .section-title {
+      font-size: 26px; font-weight: 700;
+      letter-spacing: -0.5px; margin-bottom: 32px;
+    }
 
-    /* ===== PROJECTS GRID ===== */
-    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-    .project {
+    /* ── ABOUT ── */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .about-card {
+      background: var(--surface); border: 1px solid var(--subtle);
+      border-radius: var(--radius); padding: 22px;
+    }
+    .about-card h3 { font-size: 14px; font-weight: 600; color: var(--muted); margin-bottom: 10px; letter-spacing: 0.3px; }
+    .about-card p { font-size: 15px; line-height: 1.75; color: var(--text); }
+    .about-main {
+      grid-column: 1 / -1;
+      background: var(--surface); border: 1px solid var(--subtle);
+      border-radius: var(--radius); padding: 28px;
+    }
+    .about-main p { font-size: 16px; line-height: 1.8; color: var(--muted); }
+    .about-main p strong { color: var(--text); }
+
+    /* ── SKILLS ── */
+    .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .skill-group {
+      background: var(--surface); border: 1px solid var(--subtle);
+      border-radius: var(--radius); padding: 20px 24px;
+    }
+    .skill-group h3 {
+      font-size: 12px; font-weight: 600;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 14px;
+    }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px; padding: 4px 10px;
+      background: var(--surface-3); border: 1px solid var(--subtle);
+      border-radius: 6px; color: var(--text);
+    }
+
+    /* ── EXPERIENCE ── */
+    .exp-card {
+      background: var(--surface); border: 1px solid var(--subtle);
+      border-radius: var(--radius); padding: 24px;
+    }
+    .exp-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+    .exp-title { font-size: 17px; font-weight: 700; margin-bottom: 3px; }
+    .exp-org { font-size: 14px; color: var(--primary); font-weight: 500; }
+    .exp-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px; color: var(--muted);
+      white-space: nowrap;
+    }
+    .exp-list { list-style: none; padding: 0; }
+    .exp-list li {
+      font-size: 14px; color: var(--muted);
+      padding: 5px 0 5px 18px; position: relative;
+      line-height: 1.65;
+    }
+    .exp-list li::before {
+      content: '→'; position: absolute; left: 0;
+      color: var(--muted); font-size: 12px; top: 6px;
+    }
+
+    /* ── PROJECTS ── */
+    .projects-list { display: grid; gap: 16px; }
+    .project-card {
+      background: var(--surface); border: 1px solid var(--subtle);
+      border-radius: var(--radius); padding: 24px;
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 16px; align-items: start;
+      transition: border-color 0.2s;
+    }
+    .project-card:hover { border-color: var(--muted); }
+    .project-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+    .project-name { font-size: 18px; font-weight: 700; }
+    .project-status {
+      font-size: 11px; font-weight: 600;
+      padding: 3px 9px; border-radius: 99px;
+      background: var(--surface-3); color: var(--muted);
+      border: 1px solid var(--subtle);
+    }
+    .project-stack {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px; color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .project-desc { font-size: 14px; color: var(--muted); line-height: 1.7; }
+    .project-bullets { list-style: none; padding: 0; margin-top: 10px; }
+    .project-bullets li {
+      font-size: 13px; color: var(--muted);
+      padding: 3px 0 3px 16px; position: relative;
+    }
+    .project-bullets li::before {
+      content: '·'; position: absolute; left: 0;
+      color: var(--muted); font-weight: 900;
+    }
+    .project-link {
+      text-decoration: none; color: var(--muted);
+      font-size: 13px; font-weight: 500;
+      display: flex; align-items: center; gap: 5px;
+      padding: 7px 14px; border-radius: 8px;
+      border: 1px solid var(--subtle);
+      transition: color 0.2s, border-color 0.2s;
+      white-space: nowrap;
+    }
+    .project-link:hover { color: var(--text); border-color: var(--muted); }
+
+    /* ── EDUCATION & EXTRAS ── */
+    .edu-card {
+      background: var(--surface); border: 1px solid var(--subtle);
+      border-radius: var(--radius); padding: 24px;
+    }
+    .edu-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
+    .edu-school { font-size: 18px; font-weight: 700; margin-bottom: 3px; }
+    .edu-degree { font-size: 15px; color: var(--muted); }
+    .edu-gpa {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 22px; font-weight: 700; color: var(--text);
+      text-align: right;
+    }
+    .edu-gpa span { display: block; font-size: 11px; color: var(--muted); font-family: 'Sora', sans-serif; }
+    .badge-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    .badge {
+      font-size: 12px; font-weight: 600;
+      padding: 4px 12px; border-radius: 99px;
+      background: var(--surface-2);
+      color: var(--muted); border: 1px solid var(--subtle);
+    }
+    .extras-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 28px; }
+    .extra-card {
+      background: var(--surface); border: 1px solid var(--subtle);
+      border-radius: var(--radius); padding: 18px;
+    }
+    .extra-card .icon { font-size: 22px; margin-bottom: 8px; }
+    .extra-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+    .extra-card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+    /* ── CONTACT ── */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .contact-card {
+      background: var(--surface); border: 1px solid var(--subtle);
+      border-radius: var(--radius); padding: 24px;
       display: flex; flex-direction: column; gap: 10px;
-      background: var(--surface);
-      border: 1px solid color-mix(in oklab, var(--text) 12%, transparent);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
     }
-    .project .thumb { height: 140px; background: linear-gradient(135deg, color-mix(in oklab, var(--primary) 70%, #000), color-mix(in oklab, var(--primary-2) 80%, #000)); }
-    .project .content { padding: 16px; }
-    .project h3 { margin: 0 0 6px; font-size: 18px; }
-    .project p { margin: 0 0 10px; color: var(--muted); }
-    .project .links { display: flex; gap: 10px; margin-top: auto; padding: 0 16px 16px; }
-
-    /* ===== CONTACT ===== */
-    .stack { display: grid; gap: 12px; }
-    .field { display: grid; gap: 6px; }
-    .input, textarea {
-      width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid color-mix(in oklab, var(--text) 15%, transparent);
-      background: var(--surface-2); color: var(--text);
+    .contact-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+    .contact-link {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: var(--muted);
+      font-size: 14px; font-weight: 500;
+      padding: 10px 14px; border-radius: 9px;
+      border: 1px solid var(--subtle);
+      transition: all 0.2s;
     }
-
-    footer { padding: 32px 0 60px; color: var(--muted); text-align: center; }
-
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 900px) {
-      .hero-grid { grid-template-columns: 1fr; }
-      .grid { grid-template-columns: 1fr 1fr; }
-      nav { display: none; } /* mobile: keep it simple */
+    .contact-link:hover { color: var(--text); border-color: var(--muted); background: var(--surface-2); }
+    .contact-icon { font-size: 18px; }
+    .contact-form-note {
+      grid-column: 1 / -1;
+      background: var(--surface); border: 1px solid var(--subtle);
+      border-radius: var(--radius); padding: 24px; text-align: center;
     }
-    @media (max-width: 600px) {
-      .grid { grid-template-columns: 1fr; }
-      .btn { width: 100%; text-align: center; }
+    .contact-form-note p { color: var(--muted); font-size: 15px; margin-bottom: 16px; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 32px 0 48px;
+      border-top: 1px solid var(--subtle);
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    footer a { color: inherit; text-decoration: none; }
+    footer a:hover { color: var(--text); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 720px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .avatar { display: none; }
+      .about-grid { grid-template-columns: 1fr; }
+      .about-main { grid-column: 1; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .project-card { grid-template-columns: 1fr; }
+      .edu-header { flex-direction: column; gap: 10px; }
+      .extras-grid { grid-template-columns: 1fr 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      nav a { display: none; }
+    }
+    @media (max-width: 480px) {
+      .extras-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-  <!-- ===== NAVBAR ===== -->
+
+  <!-- NAV -->
   <header>
-    <div class="container nav" role="navigation" aria-label="Main">
-      <a class="brand" href="#home" aria-label="Go to top">
-	<img src="Logo.jpg" alt="Lokesh Singam logo" class="logo" style="object-fit:cover;">
-        <span>Lokesh Singam</span>
+    <div class="wrap nav">
+      <a class="brand" href="#home">
+        <div class="logo-circle">LS</div>
+        Lokesh Singam
       </a>
       <nav>
         <a href="#about">About</a>
         <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
-        <a class="btn ghost" href="#" onclick="alert('Replace with your resume link!'); return false;">Resume</a>
+        <a class="btn-resume" href="Lokesh_s_Resume.pdf" target="_blank">Resume ↗</a>
       </nav>
     </div>
   </header>
 
-  <!-- ===== HERO ===== -->
-  <main id="home" class="hero">
-    <div class="container hero-grid">
-      <div>
-        <h1>Hi, I'm <span style="color: var(--primary)">Lokesh Singam</span> 👋</h1>
-        <p>I'm a <strong>Software Engineer</strong> based in <strong>Glassboro</strong>. I enjoy building clean, fast websites and learning new tech. This is my simple one-page portfolio.
-        </p>
-        <div class="chiprow" aria-label="Skills">
-          <!-- Edit your top skills here -->
-          <span class="chip">HTML</span>
-          <span class="chip">CSS</span>
-          <span class="chip">JavaScript</span>
-          <span class="chip">Python</span>
+  <!-- HERO -->
+  <main id="home">
+    <div class="wrap hero">
+      <div class="hero-inner">
+        <div>
+          <div class="status-dot">Open to internships · Summer 2026</div>
+          <h1>Hi, I'm <span>Lokesh</span><br>Singam.</h1>
+          <p class="hero-desc">
+            Junior CS student at <strong>Rowan University</strong>, building things with
+            <strong>Rust</strong>, <strong>Android/ML</strong>, and <strong>JavaScript</strong>.
+            Dean's List four semesters running.
+          </p>
+          <div class="hero-actions">
+            <a class="btn-primary" href="#projects">See my work</a>
+            <a class="btn-ghost" href="#contact">Get in touch</a>
+          </div>
+          <div class="socials">
+            <a href="https://github.com/LokeshSingam" target="_blank">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+              GitHub
+            </a>
+            <span class="socials-divider">·</span>
+            <a href="https://www.linkedin.com/in/lokesh-singam-3a288a293/" target="_blank">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              LinkedIn
+            </a>
+            <span class="socials-divider">·</span>
+            <a href="mailto:singamlokesh6@gmail.com">
+              ✉ singamlokesh6@gmail.com
+            </a>
+          </div>
         </div>
-        <div style="margin-top: 22px; display:flex; gap: 10px; flex-wrap: wrap;">
-          <a class="btn primary" href="#projects">See my work</a>
-          <a class="btn ghost" href="#contact">Contact me</a>
+        <div>
+          <div class="avatar">
+            <img src="profile.jpg" alt="Lokesh Singam" onerror="this.parentElement.innerHTML='<div class=\'avatar-fallback\'>LS</div>'">
+          </div>
         </div>
-        <p class="muted" style="margin-top: 14px;">🔗 Socials:
-          <!-- Replace with your links -->
-          <a href="https://github.com/LokeshSingam" style="color: inherit;">🐙 GitHub</a> ·
-          <a href="https://www.linkedin.com/in/lokesh-singam-3a288a293/" style="color: inherit;">💼 LinkedIn</a> ·
-          <a href="mailto:singamlokesh6@gmail.com" style="color: inherit;">✉️ </a>
-        </p>
-      </div>
-      <div>
-        <!-- If you have a real headshot, replace this div with <img src="profile.jpg" alt="Lokesh Singam headshot" class="avatar" style="object-fit: cover;"> -->
-<img src="profile.jpg" alt="Your Name headshot" class="avatar" style="object-fit: cover;">
       </div>
     </div>
   </main>
 
-  <!-- ===== ABOUT ===== -->
+  <!-- ABOUT -->
   <section id="about">
-    <div class="container">
-      <div class="card">
-        <h2>About Me</h2>
-        <p class="muted"></p>
-        <p>
-I’m a Computer Science student with strong skills in programming languages like Java and web development. I’m passionate about cloud computing and creating full-stack applications by integrating front-end and back-end technologies. Though early in my career, I’m eager to learn, grow and contribute to innovative projects. I’m looking for an opportunity to apply my skills and enthusiasm for technology in a dynamic organization where I can make an impact.
-        </p>
+    <div class="wrap">
+      <div class="section-label">// about</div>
+      <h2 class="section-title">Who I am</h2>
+      <div class="about-grid">
+        <div class="about-main">
+          <p>
+            I'm a <strong>Junior Computer Science student at Rowan University</strong> with a Minor in Mathematics.
+            I'm into systems programming (Rust is genuinely fun), Android development, and building things that
+            actually work end-to-end. I grew up in <strong>Hyderabad, India</strong> and now based in Glassboro, NJ.
+            <br><br>
+            I'm looking for opportunities where I can contribute to real projects, keep learning fast, and eventually
+            pursue a <strong>Master's in CS</strong>. Four semesters of Dean's List and a 3.58 GPA — but more importantly,
+            I care about the craft.
+          </p>
+        </div>
+        <div class="about-card">
+          <h3>Education</h3>
+          <p><strong>Rowan University</strong><br>B.S. Computer Science<br>Minor: Mathematics<br>GPA: 3.582 · May 2027</p>
+        </div>
+        <div class="about-card">
+          <h3>Location</h3>
+          <p>Glassboro, NJ<br>Originally from Hyderabad, India<br>Speaks English, Hindi, Telugu</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ===== PROJECTS ===== -->
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="wrap">
+      <div class="section-label">// skills</div>
+      <h2 class="section-title">What I work with</h2>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <h3>Languages</h3>
+          <div class="chips">
+            <span class="chip">Python</span>
+            <span class="chip">Java</span>
+            <span class="chip">Rust</span>
+            <span class="chip">C</span>
+            <span class="chip">C++</span>
+            <span class="chip">JavaScript ES6</span>
+            <span class="chip">SQL</span>
+            <span class="chip">HTML/CSS</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Data &amp; Backend</h3>
+          <div class="chips">
+            <span class="chip">PostgreSQL</span>
+            <span class="chip">DuckDB</span>
+            <span class="chip">ETL</span>
+            <span class="chip">REST APIs</span>
+            <span class="chip">Actix</span>
+            <span class="chip">Tokio</span>
+            <span class="chip">Parquet</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Technologies</h3>
+          <div class="chips">
+            <span class="chip">Android SDK</span>
+            <span class="chip">TensorFlow Lite</span>
+            <span class="chip">Firebase</span>
+            <span class="chip">Google Maps API</span>
+            <span class="chip">Git</span>
+            <span class="chip">Linux</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Coursework</h3>
+          <div class="chips">
+            <span class="chip">Data Engineering (Rust)</span>
+            <span class="chip">OOP Design</span>
+            <span class="chip">Algorithms</span>
+            <span class="chip">Operating Systems</span>
+            <span class="chip">Cybersecurity</span>
+            <span class="chip">HCI</span>
+            <span class="chip">Linear Algebra</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="wrap">
+      <div class="section-label">// experience</div>
+      <h2 class="section-title">Where I've worked</h2>
+      <div class="exp-card">
+        <div class="exp-header">
+          <div>
+            <div class="exp-title">Fitness Area Assistant &amp; Intramural Sports Official</div>
+            <div class="exp-org">Campus Recreation · Rowan University</div>
+          </div>
+          <div class="exp-date">Nov 2024 – Dec 2025</div>
+        </div>
+        <ul class="exp-list">
+          <li>Upheld safety protocols and equipment standards across fitness and intramural operations</li>
+          <li>Assisted patrons and contributed to an inclusive, welcoming atmosphere for students and guests</li>
+          <li>Officiated sports leagues and resolved disputes with impartiality under high-pressure conditions</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
   <section id="projects">
-    <div class="container">
-      <h2>Projects</h2>
-      <p class="muted">Here are a few things I've built. Swap these with your own!</p>
-      <div class="grid" role="list">
-        <!-- Java Calculator Project -->
-<article class="project" role="listitem">
-  <div class="thumb" aria-hidden="true" style="background: linear-gradient(135deg, #6ee7ff, #7c3aed); display:flex; align-items:center; justify-content:center; color:#0b0c10; font-weight:900;">
-    Calculator
-  </div>
-  <div class="content">
-    <h3>Java Calculator</h3>
-    <p>A simple Java calculator (console & JavaFX GUI) built with Maven. Demonstrates Java programming, object-oriented design, and Maven build management.</p>
-  </div>
-  <div class="links">
-    <a class="btn ghost" href="https://github.com/LokeshSingam/JavaCalculator" target="_blank">Code</a>
-  </div>
-</article>
+    <div class="wrap">
+      <div class="section-label">// projects</div>
+      <h2 class="section-title">Things I've built</h2>
+      <div class="projects-list">
 
+        <!-- SafeDrive AI -->
+        <div class="project-card">
+          <div>
+            <div class="project-meta">
+              <span class="project-name">SafeDrive AI</span>
+              <span class="project-status">In Progress</span>
+            </div>
+            <div class="project-stack">Android · TensorFlow Lite · Google Maps SDK · Firebase</div>
+            <p class="project-desc">An Android app that detects distracted driving in real time using on-device ML inference, with SOS crash alert and live navigation.</p>
+            <ul class="project-bullets">
+              <li>Real-time distracted driving detection via on-device ML inference; sub-200ms latency using TFLite quantization</li>
+              <li>SOS system broadcasting GPS location and crash events to emergency contacts via SMS</li>
+              <li>Live navigation with Google Maps SDK and Places API integration</li>
+            </ul>
+          </div>
+          <div></div>
+        </div>
 
-        <!-- Project 2 -->
-        <article class="project" role="listitem">
-          <div class="thumb" aria-hidden="true"></div>
-          <div class="content">
-            <h3>Project Two</h3>
-            <p>Weather widget that fetches data from a public API and displays it nicely.</p>
+        <!-- Data Engineering Pipeline -->
+        <div class="project-card">
+          <div>
+            <div class="project-meta">
+              <span class="project-name">Data Engineering Pipeline</span>
+            </div>
+            <div class="project-stack">Rust · PostgreSQL · DuckDB · Actix · Tokio</div>
+            <p class="project-desc">A full ETL pipeline in Rust with REST data services and analytical query support — built as a group project for Data Engineering with Rust.</p>
+            <ul class="project-bullets">
+              <li>ETL pipelines handling CSV, JSON, and Parquet ingestion, transformation, and storage</li>
+              <li>REST data services via Actix with async I/O using Tokio</li>
+              <li>Relational data storage with PostgreSQL schema design and indexing; analytical queries with DuckDB</li>
+            </ul>
           </div>
-          <div class="links">
-            <a class="btn ghost" href="#" onclick="alert('Replace with your live demo link'); return false;">Live</a>
-            <a class="btn ghost" href="#" onclick="alert('Replace with your GitHub repo link'); return false;">Code</a>
-          </div>
-        </article>
+          <div></div>
+        </div>
 
-        <!-- Project 3 -->
-        <article class="project" role="listitem">
-          <div class="thumb" aria-hidden="true"></div>
-          <div class="content">
-            <h3>Project Three</h3>
-            <p>Simple to-do app with local storage and keyboard shortcuts.</p>
+        <!-- Design Patterns -->
+        <div class="project-card">
+          <div>
+            <div class="project-meta">
+              <span class="project-name">Design Patterns Web Suite</span>
+            </div>
+            <div class="project-stack">JavaScript ES6 · HTML · CSS</div>
+            <p class="project-desc">Five Gang-of-Four design patterns deployed as interactive demos on Rowan's Elvis server, with zero external dependencies.</p>
+            <ul class="project-bullets">
+              <li>Strategy, Observer, Template Method, Iterator, and Composite patterns</li>
+              <li>Strategy Pattern Duck Simulator with runtime behavior swapping across 6 types via dynamic UI</li>
+            </ul>
           </div>
-          <div class="links">
-            <a class="btn ghost" href="#" onclick="alert('Replace with your live demo link'); return false;">Live</a>
-            <a class="btn ghost" href="#" onclick="alert('Replace with your GitHub repo link'); return false;">Code</a>
+          <div>
+            <a class="project-link" href="https://elvis.rowan.edu/~singam96/" target="_blank">Live ↗</a>
           </div>
-        </article>
+        </div>
+
+        <!-- Java Calculator -->
+        <div class="project-card">
+          <div>
+            <div class="project-meta">
+              <span class="project-name">Java Calculator</span>
+            </div>
+            <div class="project-stack">Java · JavaFX · Maven</div>
+            <p class="project-desc">Console and JavaFX GUI calculator demonstrating object-oriented design and Maven build management.</p>
+          </div>
+          <div>
+            <a class="project-link" href="https://github.com/LokeshSingam/JavaCalculator" target="_blank">Code ↗</a>
+          </div>
+        </div>
+
+        <!-- Lingamaiah Jewellers -->
+        <div class="project-card">
+          <div>
+            <div class="project-meta">
+              <span class="project-name">Lingamaiah Jewellers</span>
+            </div>
+            <div class="project-stack">HTML · CSS · Carrd</div>
+            <p class="project-desc">Designed and launched a mobile-responsive business website in high school — handled design, content, and deployment solo.</p>
+          </div>
+          <div>
+            <a class="project-link" href="https://lingamaiahjewllers.carrd.co" target="_blank">Live ↗</a>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
 
-  <!-- ===== CONTACT ===== -->
-  <section id="contact">
-    <div class="container">
-      <div class="card">
-        <h2>Contact</h2>
-        <p class="muted">The easiest way is my email. </p>
-        <div class="stack">
-          <!-- Change mailto address below -->
-          <a class="btn primary" href="mailto:you@example.com">✉️ singamlokesh6@gmail.com </a>
+  <!-- EDUCATION + EXTRAS -->
+  <section id="education">
+    <div class="wrap">
+      <div class="section-label">// education &amp; more</div>
+      <h2 class="section-title">Background</h2>
+      <div class="edu-card">
+        <div class="edu-header">
+          <div>
+            <div class="edu-school">Rowan University</div>
+            <div class="edu-degree">B.S. Computer Science · Minor: Mathematics · Glassboro, NJ</div>
+            <div class="edu-degree" style="margin-top:4px; font-size:13px;">Aug 2023 – May 2027</div>
+          </div>
+          <div class="edu-gpa">3.58 <span>GPA</span></div>
+        </div>
+        <div class="badge-row">
+          <span class="badge">Dean's List — Spring 2024</span>
+          <span class="badge">Dean's List — Fall 2024</span>
+          <span class="badge">Dean's List — Spring 2025</span>
+          <span class="badge">Dean's List — Fall 2025</span>
+        </div>
+      </div>
 
-          <!-- Optional basic form with mailto (opens your singamlokesh6@gmail.com app) -->
-          <form action="mailto:you@example.com" method="GET" enctype="text/plain">
-            <div class="field">
-              <label for="name">Your Name</label>
-              <input id="name" class="input" name="name" type="text" placeholder="Arjun" required>
-            </div>
-            <div class="field">
-              <label for="singamlokesh6@gmail.com">Your email</label>
-              <input id="singamlokesh6@gmail.com" class="input" name="singamlokesh6@gmail.com" type="singamlokesh6@gmail.com" placeholder="arjun@example.com" required>
-            </div>
-            <div class="field">
-              <label for="message">Message</label>
-              <textarea id="message" class="input" name="message" rows="4" placeholder="Hello! I'd like to work together."></textarea>
-            </div>
-            <button class="btn primary" type="submit">Send</button>
-          </form>
+      <div class="extras-grid">
+        <div class="extra-card">
+          <div class="icon">🏛️</div>
+          <h4>SGA Senator</h4>
+          <p>Rowan University Student Government · International Club · University Advancement Committee (2024)</p>
+        </div>
+        <div class="extra-card">
+          <div class="icon">🩺</div>
+          <h4>CPR Certified</h4>
+          <p>Adult First Aid / CPR / AED — American Red Cross<br>Feb 2025 – Feb 2027</p>
+        </div>
+        <div class="extra-card">
+          <div class="icon">📋</div>
+          <h4>Project Management</h4>
+          <p>Google Project Management Professional Certificate — Google / Coursera (Sep 2025)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="section-label">// contact</div>
+      <h2 class="section-title">Let's talk</h2>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <h3>Reach me directly</h3>
+          <a class="contact-link" href="mailto:singamlokesh6@gmail.com">
+            <span class="contact-icon">✉</span>
+            singamlokesh6@gmail.com
+          </a>
+          <a class="contact-link" href="mailto:singam96@students.rowan.edu">
+            <span class="contact-icon">🎓</span>
+            singam96@students.rowan.edu
+          </a>
+          <a class="contact-link" href="tel:+18565180510">
+            <span class="contact-icon">📞</span>
+            (856) 518-0510
+          </a>
+        </div>
+        <div class="contact-card">
+          <h3>Find me online</h3>
+          <a class="contact-link" href="https://linkedin.com/in/lokesh-singam-3a288a293/" target="_blank">
+            <span class="contact-icon">💼</span>
+            linkedin.com/in/lokeshsingam
+          </a>
+          <a class="contact-link" href="https://github.com/LokeshSingam" target="_blank">
+            <span class="contact-icon">🐙</span>
+            github.com/LokeshSingam
+          </a>
+          <a class="contact-link" href="https://lokeshsingam.github.io/MySite" target="_blank">
+            <span class="contact-icon">🌐</span>
+            lokeshsingam.github.io/MySite
+          </a>
         </div>
       </div>
     </div>
   </section>
 
   <footer>
-    <div class="container">
-      © <span id="year"></span> Lokesh Singam. Built with plain HTML & CSS.
+    <div class="wrap">
+      <p>Lokesh Singam ·
+        <a href="https://github.com/LokeshSingam" target="_blank">GitHub</a>
+      </p>
     </div>
   </footer>
 
-  <script>
-    // Auto‑update year
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
 </body>
 </html>
